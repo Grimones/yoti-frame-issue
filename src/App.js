@@ -3,10 +3,9 @@ import FaceCapture, { CAPTURE_METHOD } from "@getyoti/react-face-capture";
 import "@getyoti/react-face-capture/index.css";
 import Container from "@material-ui/core/Container";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
-import { Button, Zoom, CircularProgress } from "@material-ui/core";
+import { Button, Modal, Box, Typography } from "@material-ui/core";
 import ReplayIcon from "@material-ui/icons/Replay";
 import { Api } from "./api/api";
-import clsx from "clsx";
 
 const service = new Api();
 
@@ -53,20 +52,49 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+const modalStyles = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const useRestartCapture = (status) => {
+  const [key, setKey] = React.useState(0);
+  const previousStatusRef = React.useRef(status);
+
+  React.useEffect(() => {
+    // Internally we have something like
+    // previousStatusRef.current === AcsStatus.ERROR && status === AcsStatus.NORMAL
+    if (previousStatusRef.current === true && status === false) {
+      setKey((prev) => prev + 1);
+    }
+    previousStatusRef.current = status;
+  });
+
+  return key;
+};
+
 const App = () => {
-  const [image, setImage] = useState();
   const [response, setResponse] = useState();
-  const [error, setError] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const key = useRestartCapture(hasError);
 
   const classes = useStyles();
 
-  const onSuccess = ({ image }) => {
-    setImage(image);
+  const onSuccess = ({ img }) => {
     service
-      .predict(image)
+      .predict(img)
       .then((res) => setResponse(JSON.stringify(res.data, null, 2)))
       .catch((err) => {
-        setError(true);
+        setHasError(true);
+        setIsModalOpen(true);
         const errorMessage = err.response.data;
         setResponse(
           typeof errorMessage === "object" && errorMessage !== null
@@ -78,51 +106,27 @@ const App = () => {
   const onError = (error) => console.log("Error =", error);
 
   const reset = () => {
-    setImage(undefined);
     setResponse(undefined);
-    setError(undefined);
+    setHasError(false);
+    setIsModalOpen(false);
   };
 
   return (
     <div className={classes.root}>
       <Container>
-        {!image ? (
-          <div className={classes.faceCapture}>
-            <FaceCapture
-              captureMethod={CAPTURE_METHOD.AUTO}
-              onSuccess={onSuccess}
-              onError={onError}
-            />
-          </div>
-        ) : (
-          <div className={classes.imgContainer}>
-            <Zoom in={!!image}>
-              <img
-                className={classes.img}
-                src={image}
-                alt="Face Capture Module image"
-              />
-            </Zoom>
-            <div
-              className={clsx(classes.response, {
-                [classes.error]: error,
-              })}
-            >
-              {response ? (
-                <>
-                  <span
-                    className={clsx(classes.responseTitle, {
-                      [classes.responseTitleError]: error,
-                    })}
-                  >
-                    {error ? "Error" : "Response"}:
-                  </span>
-                  <pre>{response}</pre>
-                </>
-              ) : (
-                <CircularProgress size={30} />
-              )}
-            </div>
+        <div className={classes.faceCapture}>
+          <FaceCapture
+            key={key}
+            captureMethod={CAPTURE_METHOD.AUTO}
+            onSuccess={onSuccess}
+            onError={onError}
+          />
+        </div>
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <Box sx={modalStyles}>
+            <Typography variant="h6" component="h2">
+              {response}
+            </Typography>
             <Button
               variant="contained"
               color="primary"
@@ -133,8 +137,8 @@ const App = () => {
             >
               Restart
             </Button>
-          </div>
-        )}
+          </Box>
+        </Modal>
       </Container>
     </div>
   );
