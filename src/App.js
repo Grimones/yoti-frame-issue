@@ -11,8 +11,13 @@ const service = new Api();
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    root: { paddingTop: theme.spacing(3) },
-    img: { width: "100%", borderRadius: 20 },
+    root: {
+      height: "100%",
+    },
+    img: {
+      width: "100%",
+      borderRadius: 20,
+    },
     imgContainer: {
       display: "flex",
       flexDirection: "column",
@@ -24,13 +29,20 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(3),
     },
     faceCapture: {
-      "& div div": {
-        borderRadius: 20,
-        width: "50vw",
-      },
+      background: "black",
       display: "flex",
-      flexDirection: "column",
       alignItems: "center",
+      justifyContent: "center",
+      height: "100%",
+      "& video": {
+        height: "100%",
+        width: "100%",
+        objectFit: "cover",
+      },
+      "& > div, & > div > div": {
+        height: "100%",
+        width: "100%",
+      },
     },
     response: {
       marginTop: theme.spacing(2),
@@ -113,7 +125,7 @@ const App = () => {
 
   return (
     <div className={classes.root}>
-      <Container>
+      <Container style={{ padding: 0, height: "100%" }}>
         <div className={classes.faceCapture}>
           <FaceCapture
             key={key}
