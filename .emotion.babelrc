@@ -1,0 +1,19 @@
+{
+    "assumptions": {
+        "setPublicClassFields": true
+    },
+    "presets": [
+        [
+            "./babel-preset",
+            {
+                "runtime": "automatic",
+                "useBuiltIns": "usage",
+                "importSource": "@emotion/react",
+                "classProperties": {
+                    "loose": false
+                }
+            }
+        ]
+    ],
+    "plugins": ["@emotion"]
+}

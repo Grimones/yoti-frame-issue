@@ -1,7 +1,13 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nrwl/nx", "@emotion", "testing-library"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:react/jsx-runtime"
+  ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
@@ -18,25 +24,90 @@
               }
             ]
           }
-        ]
+        ],
+        // TODO: Check if needed
+        "@typescript-eslint/no-unused-expressions": "off",
+        "no-plusplus": "off",
+        "no-param-reassign": ["error", { "props": false }],
+        "jsx-a11y/media-has-caption": "off",
+        // Available in typescript config
+        "camelcase": "off",
+        "@typescript-eslint/naming-convention": "warn",
+        "no-underscore-dangle": "warn",
+        "arrow-body-style": ["warn", "as-needed"],
+        // It gives false positives because of HOCs. Turn it off
+        "import/no-named-as-default": "off",
+        "import/prefer-default-export": "off",
+        // TODO: better to enable when all branches are moved to enforce order
+        "import/order": "off",
+        "react/jsx-filename-extension": [
+          "error",
+          { "extensions": [".js", ".jsx", ".tsx"] }
+        ],
+        "react/function-component-definition": "off",
+        // TODO: Turn on later when all branches are moved
+        "react/jsx-fragments": "off",
+        // TODO: Turn on later when all branches are moved
+        "react/jsx-no-useless-fragment": "off",
+        "react/state-in-constructor": "off",
+        "react/sort-comp": "off",
+        "react/forbid-prop-types": "off",
+        "react/prop-types": "off",
+        "react/no-array-index-key": "warn",
+        "react/jsx-key": "error",
+        // From node_modules/eslint-config-airbnb/node_modules/eslint-config-airbnb-base/rules/es6.js
+        "no-restricted-exports": [
+          "error",
+          {
+            "restrictedNamedExports": [
+              "then" // this will cause tons of confusion when your module is dynamically `import()`ed, and will break in most node ESM versions
+            ]
+          }
+        ],
+        "import/no-extraneous-dependencies": [
+          "error",
+          {
+            "devDependencies": ["**/*.stories.*", "**/*.spec.*", "**/*.test.*"]
+          }
+        ],
+        "@emotion/pkg-renaming": "error"
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "rules": {
+        // These rules are overriden in plugin:@nrwl/nx/typescript to be off. Override again
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
+        "global-require": "off",
+        "semi": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nrwl/nx/javascript"],
-      "rules": {}
+      "rules": {
+        // These rules are overriden in plugin:@nrwl/nx/javascript to be off. Override again
+        "global-require": "off",
+        "semi": "error"
+      }
     },
     {
-      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
-      "env": {
-        "jest": true
-      },
-      "rules": {}
+      // 3) Now we enable eslint-plugin-testing-library rules or preset only for matching files!
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react"],
+      "rules": {
+        // These rules are overriden in plugin:@nrwl/nx/typescript to be off. Override again
+        "react/jsx-props-no-spreading": "off",
+        "react/require-default-props": "off",
+        "global-require": "off",
+        "semi": "error",
+        "no-undef": "off"
+      }
     }
   ]
 }

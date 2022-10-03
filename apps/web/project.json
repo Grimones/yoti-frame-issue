@@ -1,0 +1,68 @@
+{
+  "name": "web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/web/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "hostname": "{args.hostname}",
+        "outputPath": "dist/apps/web",
+        "index": "apps/web/public/index.html",
+        "generateIndexHtml": false,
+        "deployUrl": "/",
+        "baseHref": "/",
+        "main": "apps/web/src/index.main.ts",
+        "polyfills": "apps/web/config/polyfills.ts",
+        "tsConfig": "apps/web/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "node_modules/@getyoti/react-face-capture/assets",
+            "output": "./assets"
+          }
+        ],
+        "styles": [],
+        "scripts": [],
+        "webpackConfig": "apps/web/config/webpack.config.ts"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/web/src/environments/environment.ts",
+              "with": "apps/web/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": "hidden",
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "web:build",
+        "hmr": true,
+        "host": "0.0.0.0",
+        "ssl": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "web:build:production",
+          "hmr": false
+        }
+      }
+    }
+  },
+  "implicitDependencies": [],
+  "tags": []
+}

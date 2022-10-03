@@ -1,0 +1,59 @@
+{
+  "extends": ["plugin:@nrwl/nx/react", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "parserOptions": {
+    "project": ["apps/web/tsconfig.*?.json"]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": ["apps/web/tsconfig.*?.json"]
+      }
+    }
+  },
+  "globals": {
+    "shallow": true,
+    "mount": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        // TODO: Turn on when got rid of all deprecated lifecycle methods
+        "react/no-deprecated": "warn",
+        // Those are always added in webpack alias config
+        "import/no-unresolved": ["error", { "ignore": ["^theme*"] }],
+        "react/no-unused-class-component-methods": "warn",
+        // TODO: turn to error and fix when all branches are moved
+        "no-promise-executor-return": "warn",
+        // TODO: turn to error and fix  when all branches are moved
+        "react/no-arrow-function-lifecycle": "off",
+        // TODO: turn to error and fix  when all branches are moved
+        "@typescript-eslint/default-param-last": "warn",
+        // TODO: turn to error and fix  when all branches are moved
+        "react/no-unstable-nested-components": "warn",
+        // TODO: should be enabled but it treats destructure functions from props as string. Turn off for now
+        "@typescript-eslint/no-implied-eval": "off",
+        // TODO: enable when all branches are moved. Really crucial rule to avoid a tons of bugs
+        // Better to explicitly disable line with explanation why
+        "react-hooks/exhaustive-deps": "warn",
+        "class-methods-use-this": "warn"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "react/require-default-props": "off",
+        "react/jsx-props-no-spreading": "off",
+        "react/no-unused-prop-types": "off"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {
+        // Makes sense to enforce it when until everything is moved on typescript
+        "react/jsx-props-no-spreading": "warn"
+      }
+    }
+  ]
+}

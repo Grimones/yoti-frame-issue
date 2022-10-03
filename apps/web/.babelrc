@@ -1,0 +1,8 @@
+{
+    "extends": "../../.emotion.babelrc",
+    "env": {
+        "test": {
+            "plugins": ["babel-plugin-transform-import-meta"]
+        }
+    }
+}
