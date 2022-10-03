@@ -1,0 +1,89 @@
+{
+  "name": "yoti-issue",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/yoti-issue/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/yoti-issue",
+        "index": "apps/yoti-issue/src/index.html",
+        "baseHref": "/",
+        "main": "apps/yoti-issue/src/main.jsx",
+        "polyfills": "apps/yoti-issue/src/polyfills.ts",
+        "tsConfig": "apps/yoti-issue/tsconfig.app.json",
+        "assets": [
+          "apps/yoti-issue/src/favicon.ico",
+          "apps/yoti-issue/src/assets",
+          {
+            "input": "./node_modules/@getyoti/react-face-capture/assets",
+            "glob": "**",
+            "output": "./assets"
+          }
+        ],
+        "styles": ["apps/yoti-issue/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/yoti-issue/src/environments/environment.ts",
+              "with": "apps/yoti-issue/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "yoti-issue:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "yoti-issue:build:development"
+        },
+        "production": {
+          "buildTarget": "yoti-issue:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/yoti-issue/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/yoti-issue"],
+      "options": {
+        "jestConfig": "apps/yoti-issue/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

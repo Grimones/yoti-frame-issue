@@ -1,60 +1,94 @@
-# web-fcm-demo
 
-Welcome to the Web FCM Demo. The purpose of this repository is to demo the Face Capture Module npm package integration and use the output image to perform a prediction calling Yoti AI Services.
 
-## Setup
+# Reproduction
 
-This project needs to have a configuration file in order to work. We only need to pass the configuration values as environment variables. We can follow this approach using a `.env.local` file:
+This project was generated using [Nx](https://nx.dev).
 
-Rename `.env.example` to `.env.local` and fill in the configuration values:
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
-```bash
-PEM_FILE_PATH=
-SDK_ID=
-ENDPOINT=
-```
+🔎 **Smart, Fast and Extensible Build System**
 
-- **PEM_FILE_PATH:** path to the `.pem` private key needed to request Yoti Services.
-- **SDK_ID:** client SDK ID needed to request Yoti Services.
-- **ENDPOINT:** endpoint for the service to be requested.
+## Adding capabilities to your workspace
 
-Both `PEM_FILE_PATH` and `SDK_ID` secrets are obtained from following the instructions in [this document](https://developers.yoti.com/yoti/getting-started-hub). Specifically, under `Generate API keys` section.
+Nx supports many plugins which add capabilities for developing different types of applications and different tools.
 
-The information required to fill the `ENDPOINT` variable can be found [here](https://developers.yoti.com/age-estimation/integration-guide). The `BASE_URL` (base URL for the service to be requested) is set in the `.env` file (check the value to fill the `ENDPOINT` field).
+These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
 
-## Run locally
+Below are our core plugins:
 
-This demo was designed to be run locally. To get started, follow the below steps in the root directory:
+- [React](https://reactjs.org)
+  - `npm install --save-dev @nrwl/react`
+- Web (no framework frontends)
+  - `npm install --save-dev @nrwl/web`
+- [Angular](https://angular.io)
+  - `npm install --save-dev @nrwl/angular`
+- [Nest](https://nestjs.com)
+  - `npm install --save-dev @nrwl/nest`
+- [Express](https://expressjs.com)
+  - `npm install --save-dev @nrwl/express`
+- [Node](https://nodejs.org)
+  - `npm install --save-dev @nrwl/node`
 
-1. Install all the dependencies:
+There are also many [community plugins](https://nx.dev/community) you could add.
 
-    ```bash
-    npm install
-    ```
+## Generate an application
 
-2. Start the server that will manage the request:
+Run `nx g @nrwl/react:app my-app` to generate an application.
 
-    ```bash
-    node server.js
-    ```
+> You can use any of the plugins above to generate applications as well.
 
-3. Start the client in a different terminal window:
+When using Nx, you can create multiple applications and libraries in the same workspace.
 
-    ```bash
-    npm start
-    ```
+## Generate a library
 
-Now the client is ready to use. You just need to follow the FCM instructions, take a photo and wait for the response.
+Run `nx g @nrwl/react:lib my-lib` to generate a library.
 
-### Windows
+> You can also use any of the plugins above to generate libraries as well.
 
-If the client browser does not start automatically or the given address in the terminal does not work, replace `0.0.0.0` by `127.0.0.1`.
+Libraries are shareable across libraries and applications. They can be imported from `@reproduction/mylib`.
 
-## Face Capture module
+## Development server
 
-The `Face Capture` module is a npm package that provides a React component which takes pictures using face detection tools.
-The usage of this module can be found in `App.js`. You can find more information about how to install the dependency, the API sections, etc [here](https://www.npmjs.com/package/@getyoti/react-face-capture).
+Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
-## Yoti NodeJS SDK
+## Code scaffolding
 
-The `Yoti NodeJS SDK` package allows to integrate a NodeJS back-end with Yoti apps. The usage of this package to perform predictions to a Yoti app can be found in `server.js` file. For more information about this package, check [this link](https://www.npmjs.com/package/yoti).
+Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+
+## Build
+
+Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+
+Run `nx affected:test` to execute the unit tests affected by a change.
+
+## Running end-to-end tests
+
+Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+
+Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+
+## Understand your workspace
+
+Run `nx graph` to see a diagram of the dependencies of your projects.
+
+## Further help
+
+Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+
+
+## ☁ Nx Cloud
+
+### Distributed Computation Caching & Distributed Task Execution
+
+<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+
+Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+
+Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+
+Visit [Nx Cloud](https://nx.app/) to learn more.

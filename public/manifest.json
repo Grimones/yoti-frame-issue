@@ -1,8 +1,0 @@
-{
-  "short_name": "FCM Demo",
-  "name": "Face Capture Module Demo",
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
-}
