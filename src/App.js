@@ -128,6 +128,7 @@ const App = () => {
       <Container style={{ padding: 0, height: "100%" }}>
         <div className={classes.faceCapture}>
           <FaceCapture
+            secure
             key={key}
             captureMethod={CAPTURE_METHOD.AUTO}
             onSuccess={onSuccess}
