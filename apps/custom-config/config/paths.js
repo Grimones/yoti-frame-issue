@@ -19,13 +19,13 @@ const resolveApp = (relativePath) => path.resolve(appDirectory, relativePath);
 const publicUrlOrPath = getPublicUrlOrPath(
   process.env.NODE_ENV === 'development',
   require(resolveApp('package.json')).homepage,
-  process.env.PUBLIC_URL,
+  process.env.PUBLIC_URL
 );
 
 module.exports = {
-  appPath: resolveApp('apps/web'),
-  indexTemplate: resolveApp('apps/web/src/hbs/index.hbs'),
-  iframeTemplate: resolveApp('apps/web/src/hbs/iframe.hbs'),
+  appPath: resolveApp('apps/custom-config'),
+  indexTemplate: resolveApp('apps/custom-config/src/hbs/index.hbs'),
+  iframeTemplate: resolveApp('apps/custom-config/src/hbs/iframe.hbs'),
   publicUrlOrPath,
   theme: (themeId) => resolveApp(`libs/shared/themes/src/${themeId}`),
 };

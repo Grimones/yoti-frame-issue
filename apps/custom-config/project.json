@@ -1,7 +1,7 @@
 {
-  "name": "web",
+  "name": "custom-config",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/web/src",
+  "sourceRoot": "apps/custom-config/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,14 +10,14 @@
       "defaultConfiguration": "production",
       "options": {
         "hostname": "{args.hostname}",
-        "outputPath": "dist/apps/web",
-        "index": "apps/web/public/index.html",
+        "outputPath": "dist/apps/custom-config",
+        "index": "apps/custom-config/public/index.html",
         "generateIndexHtml": false,
         "deployUrl": "/",
         "baseHref": "/",
-        "main": "apps/web/src/index.main.ts",
-        "polyfills": "apps/web/config/polyfills.ts",
-        "tsConfig": "apps/web/tsconfig.app.json",
+        "main": "apps/custom-config/src/index.main.ts",
+        "polyfills": "apps/custom-config/config/polyfills.ts",
+        "tsConfig": "apps/custom-config/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
@@ -27,14 +27,14 @@
         ],
         "styles": [],
         "scripts": [],
-        "webpackConfig": "apps/web/config/webpack.config.ts"
+        "webpackConfig": "apps/custom-config/config/webpack.config.ts"
       },
       "configurations": {
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/web/src/environments/environment.ts",
-              "with": "apps/web/src/environments/environment.prod.ts"
+              "replace": "apps/custom-config/src/environments/environment.ts",
+              "with": "apps/custom-config/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,

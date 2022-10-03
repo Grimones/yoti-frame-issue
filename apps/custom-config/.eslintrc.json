@@ -2,12 +2,12 @@
   "extends": ["plugin:@nrwl/nx/react", "../../.eslintrc.json"],
   "ignorePatterns": ["!**/*"],
   "parserOptions": {
-    "project": ["apps/web/tsconfig.*?.json"]
+    "project": ["apps/custom-config/tsconfig.*?.json"]
   },
   "settings": {
     "import/resolver": {
       "typescript": {
-        "project": ["apps/web/tsconfig.*?.json"]
+        "project": ["apps/custom-config/tsconfig.*?.json"]
       }
     }
   },
