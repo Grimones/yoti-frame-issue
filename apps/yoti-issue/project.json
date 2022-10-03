@@ -23,6 +23,11 @@
             "input": "./node_modules/@getyoti/react-face-capture/assets",
             "glob": "**",
             "output": "./assets"
+          },
+          {
+            "input": "./node_modules/@getyoti/react-face-capture/assets",
+            "glob": "**",
+            "output": "./.vercel/output/static"
           }
         ],
         "styles": ["apps/yoti-issue/src/styles.css"],
